@@ -1,5 +1,8 @@
 <template>
-  <li>{{ todoItem }}</li>
+  <li>
+    <span>{{ todoItem }}</span>
+    <button @click="removeItem">Delete</button>
+  </li>
 </template>
 
 <script lang="ts">
@@ -7,8 +10,12 @@ import Vue from "vue";
 
 export default Vue.extend({
   props: {
-    todoItem: {
-      type: String,
+    todoItem: String,
+    index: Number,
+  },
+  methods: {
+    removeItem() {
+      this.$emit("remove", this.index);
     },
   },
 });
