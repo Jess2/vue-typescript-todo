@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label for="todo-input"></label>
-    <input id="todo-input" type="text" />
+    <label for="todo-input">오늘 할 일 : </label>
+    <input id="todo-input" type="text" :value="item" @input="handleInput" />
     <button @click="addTodo" type="button">Add</button>
   </div>
 </template>
@@ -10,10 +10,19 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "TodoInput",
+  props: {
+    item: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
+    handleInput(event: InputEvent) {
+      const eventTarget = event.target as HTMLInputElement;
+      this.$emit("input", eventTarget.value);
+    },
     addTodo() {
-      console.log("add");
+      this.$emit("add");
     },
   },
 });
